@@ -14,17 +14,17 @@ import com.exercise.login_exercise.storage.SharedPrefManager;
  * Created by jongwow on 2020-07-17.
  */
 
-public class ProfileActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.textView);
-        textView.setText("성공이다???!!!"+SharedPrefManager.getInstance(this).getId()+".");
+        textView.setText("성공이다???!!!" + SharedPrefManager.getInstance(this).getId() + ".");
 
         findViewById(R.id.logoutBtn).setOnClickListener(new View.OnClickListener() {
             @Override
