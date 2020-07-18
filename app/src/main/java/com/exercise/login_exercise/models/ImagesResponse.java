@@ -3,19 +3,13 @@ package com.exercise.login_exercise.models;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by jongwow on 2020-07-17.
+ * Created by jongwow on 2020-07-18.
  */
-public class LoginResponse {
+public class ImagesResponse {
     private boolean error;
     @SerializedName("msg")
     private String message;
-    private User user;
-
-    public LoginResponse(boolean error, String message, User user) {
-        this.error = error;
-        this.message = message;
-        this.user = user;
-    }
+    private String url;
 
     public boolean isError() {
         return error;
@@ -25,7 +19,13 @@ public class LoginResponse {
         return message;
     }
 
-    public User getUser() {
-        return user;
+    public String getUrl() {
+        return url;
+    }
+
+    public ImagesResponse(boolean error, String message, String url) {
+        this.error = error;
+        this.message = message;
+        this.url = url;
     }
 }

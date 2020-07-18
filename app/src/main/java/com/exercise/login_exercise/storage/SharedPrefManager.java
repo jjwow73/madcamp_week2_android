@@ -29,33 +29,35 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt("id", user.getUserId());
+        editor.putString("id", user.getId());
         editor.putString("email", user.getEmail());
         editor.putString("name", user.getName());
+        editor.putString("imageUrl", user.getImageUrl());
 
         editor.apply();
     }
 
-    public void saveId(int id){
+    public void saveId(String id){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt("id", id);
+        editor.putString("id", id);
 
         editor.apply();
     }
 
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt("id", -1) != -1;
+        return !sharedPreferences.getString("id", "-1").equals("-1");
     }
 
     public User getUser() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
-                sharedPreferences.getInt("id", -1),
+                sharedPreferences.getString("id", "-1"),
                 sharedPreferences.getString("email", null),
-                sharedPreferences.getString("name", null)
+                sharedPreferences.getString("name", null),
+                sharedPreferences.getString("imageUrl", null)
         );
     }
 
@@ -66,8 +68,8 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-    public int getId() {
+    public String getId() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt("id", -1);
+        return sharedPreferences.getString("id", "-1");
     }
 }
