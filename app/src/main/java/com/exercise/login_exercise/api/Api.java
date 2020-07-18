@@ -22,18 +22,34 @@ import retrofit2.http.Part;
 public interface Api {
 
     @FormUrlEncoded
-    @POST("/api/v1/user/fbLogin")
-    Call<LoginResponse> fbLogin(
-            @Field("name") String name,
+    @POST("/api/v3/register")
+    Call<LoginResponse> register(
             @Field("email") String email,
-            @Field("id") String id
+            @Field("name") String name,
+            @Field("password") String password,
+            @Field("phone") String phone
+    );
+
+//    @FormUrlEncoded
+//    @POST("/api/v2/login")
+//    Call<LoginResponse> login(
+//            @Field("name") String name,
+//            @Field("email") String email,
+//            @Field("id") String id
+//    );
+
+    @FormUrlEncoded
+    @POST("/api/v3/login")
+    Call<LoginResponse> login(
+            @Field("email") String email,
+            @Field("password") String password
     );
 
     @FormUrlEncoded
-    @POST("/api/v2/login")
-    Call<LoginResponse> login(
-            @Field("name") String name,
+    @POST("/api/v3/facebook")
+    Call<LoginResponse> facebookLogin(
             @Field("email") String email,
+            @Field("name") String name,
             @Field("id") String id
     );
 

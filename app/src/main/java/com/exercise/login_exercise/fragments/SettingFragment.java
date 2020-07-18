@@ -37,7 +37,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
         textViewEmail.setText(SharedPrefManager.getInstance(getActivity()).getUser().getEmail());
         textViewName.setText(SharedPrefManager.getInstance(getActivity()).getUser().getName());
-        textViewId.setText(SharedPrefManager.getInstance(getActivity()).getUser().getId());
+//        textViewId.setText(SharedPrefManager.getInstance(getActivity()).getUser().getId());
 
         view.findViewById(R.id.buttonLogout).setOnClickListener(this);
     }

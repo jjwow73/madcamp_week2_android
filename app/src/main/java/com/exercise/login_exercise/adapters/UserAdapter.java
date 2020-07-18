@@ -45,7 +45,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.textViewName.setText(user.getName());
         holder.textViewEmail.setText(user.getEmail());
 
-        String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + user.getImageUrl();
+        String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
         Glide.with(mContext).load(imageUrl).into(imageView);
     }
 

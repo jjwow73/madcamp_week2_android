@@ -29,10 +29,10 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("id", user.getId());
+        editor.putString("id", "1");
         editor.putString("email", user.getEmail());
         editor.putString("name", user.getName());
-        editor.putString("imageUrl", user.getImageUrl());
+//        editor.putString("imageUrl", user.getImageUrl());
 
         editor.apply();
     }
@@ -54,11 +54,11 @@ public class SharedPrefManager {
     public User getUser() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
-                sharedPreferences.getString("id", "-1"),
                 sharedPreferences.getString("email", null),
-                sharedPreferences.getString("name", null),
-                sharedPreferences.getString("imageUrl", null)
+                sharedPreferences.getString("name", null)
         );
+//                sharedPreferences.getString("id", "-1"),
+//                sharedPreferences.getString("imageUrl", null)
     }
 
     public void clear() {
