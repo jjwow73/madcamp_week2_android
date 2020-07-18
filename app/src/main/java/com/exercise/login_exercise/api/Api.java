@@ -38,7 +38,7 @@ public interface Api {
             @Field("name") String name
     );
 
-    @GET("/api/v1/image/all")
+    @GET("/api/v1/image/list")
     Call<ImagesResponse> getImages();
 
 

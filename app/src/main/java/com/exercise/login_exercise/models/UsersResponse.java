@@ -1,15 +1,15 @@
 package com.exercise.login_exercise.models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by jongwow on 2020-07-18.
  */
 public class UsersResponse {
     private boolean error;
-    private List<User> users;
+    private ArrayList<User> users;
 
-    public UsersResponse(boolean error,  List<User> users) {
+    public UsersResponse(boolean error,  ArrayList<User> users) {
         this.error = error;
         this.users = users;
     }
@@ -18,7 +18,7 @@ public class UsersResponse {
         return error;
     }
 
-    public List<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return users;
     }
 }

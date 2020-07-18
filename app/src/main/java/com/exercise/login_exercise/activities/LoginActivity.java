@@ -74,16 +74,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 progressBar.setVisibility(View.GONE);
 
-
                 LoginResponse loginResponse = response.body();
                 if (response.code() == 200) {
                     Toast.makeText(LoginActivity.this, "[수신]" + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+
                     SharedPrefManager.getInstance(LoginActivity.this)
                             .saveUser(loginResponse.getUser());//TODO: Test용
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     finish();
                     startActivity(intent);
+
                 } else if (response.code() == 404){
                     Log.d(TAG, "onResponse: Body: Error"+response.errorBody());
                     Toast.makeText(LoginActivity.this, "없는 아이디", Toast.LENGTH_LONG).show();

@@ -21,6 +21,7 @@ import com.exercise.login_exercise.api.RetrofitClient;
 import com.exercise.login_exercise.models.User;
 import com.exercise.login_exercise.models.UsersResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,7 +37,7 @@ public class UserFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private UserAdapter adapter;
-    private List<User> userList;
+    private ArrayList<User> userList;
 
 
     @Nullable
@@ -51,7 +52,6 @@ public class UserFragment extends Fragment{
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
 
         Call<UsersResponse> call = RetrofitClient.getInstance().getApi().getUsers();
 
