@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.exercise.login_exercise.R;
@@ -40,8 +41,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
         ImageView imageView = holder.imageView;
 
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(mContext);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
         String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + url;
-        Glide.with(mContext).load(imageUrl).into(imageView);
+        Glide.with(mContext)
+                .load(imageUrl)
+                .placeholder(circularProgressDrawable)
+                .into(imageView);
     }
 
     @Override

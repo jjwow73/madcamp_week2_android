@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class UserFragment extends Fragment{
     private RecyclerView recyclerView;
     private UserAdapter adapter;
     private ArrayList<User> userList;
-
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -53,11 +54,18 @@ public class UserFragment extends Fragment{
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // Set up progress before call
+        progressBar = view.findViewById(R.id.loading_spinner);
+        progressBar.setVisibility(View.VISIBLE);
+
+
         Call<UsersResponse> call = RetrofitClient.getInstance().getApi().getUsers();
 
         call.enqueue(new Callback<UsersResponse>() {
             @Override
             public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
+                progressBar.setVisibility(View.GONE);
+
                 if (response.code() == 200) {
                     userList = response.body().getUsers();
                     Log.d(TAG, "onResponse: getUsers"+userList);
@@ -65,13 +73,14 @@ public class UserFragment extends Fragment{
                     recyclerView.setAdapter(adapter);
                 }
                 else{
-                    Toast.makeText(getContext(), "요청 실패["+response.code()+"]", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "잘못된 요청["+response.code()+"]", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UsersResponse> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "요청 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }

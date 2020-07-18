@@ -9,7 +9,7 @@ public class UsersResponse {
     private boolean error;
     private ArrayList<User> users;
 
-    public UsersResponse(boolean error,  ArrayList<User> users) {
+    public UsersResponse(boolean error, ArrayList<User> users) {
         this.error = error;
         this.users = users;
     }
