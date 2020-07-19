@@ -42,6 +42,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+    <activity android:name=".activities.CustomScannerActivity"/>
+        <activity
+            android:name=".activities.AnyOrientationCaptureActivity"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- File Provider  설정-->
         <provider
