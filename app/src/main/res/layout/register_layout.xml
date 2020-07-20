@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/edt_phone"
         android:hint="phone"
-        android:inputType="textPassword"/>
+        android:inputType="textPhonetic"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"

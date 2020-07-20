@@ -31,6 +31,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     public static final int sub = 1001; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
-
+    private LoginManager loginManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
+        loginManager.getInstance().logOut();
+
 
         ////////////////////////// User login ///////////////////////
         edt_logic_email = (MaterialEditText) findViewById(R.id.edt_email);
