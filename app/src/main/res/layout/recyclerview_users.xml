@@ -26,7 +26,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
 
         <TextView
-            android:id="@+id/textViewEmail"
+            android:id="@+id/textViewPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Belal Khan"

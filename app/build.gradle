@@ -45,6 +45,12 @@ dependencies {
     // Glide 이미지 로딩을 위한 CircularProgressDrawable
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    // material edit text
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    // material styled dialog
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    //facebook
+    implementation 'com.facebook.android:facebook-login:[5,6)'
 
 
     testImplementation 'junit:junit:4.12'
