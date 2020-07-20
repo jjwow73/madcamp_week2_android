@@ -43,7 +43,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         ImageView imageView = holder.imageView;
 
         holder.textViewName.setText(user.getName());
-        holder.textViewEmail.setText(user.getEmail());
+        holder.textViewPhone.setText(user.getPhone());
 
         String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
         Glide.with(mContext).load(imageUrl).into(imageView);
@@ -57,14 +57,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     class UserViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName, textViewEmail;
+        TextView textViewName, textViewPhone;
         ImageView imageView;
 
         public UserViewHolder(View itemView) {
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.textViewName);
-            textViewEmail = itemView.findViewById(R.id.textViewEmail);
+            textViewPhone = itemView.findViewById(R.id.textViewPhone);
             imageView = itemView.findViewById(R.id.image);
         }
     }

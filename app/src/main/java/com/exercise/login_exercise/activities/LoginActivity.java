@@ -69,10 +69,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         checkSelfPermission();
 
-//        editText = findViewById(R.id.editText);
-
-//        findViewById(R.id.buttonLogin).setOnClickListener(this);
-
         progressBar = findViewById(R.id.loading_spinner);
         ////////////////////////// facebook /////////////////////////
         callbackManager = CallbackManager.Factory.create();
@@ -103,20 +99,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void userLogin() {
-//        String id = editText.getText().toString().trim();
-//        if (id.isEmpty()) {
-//            editText.setError("빈칸임");
-//            editText.requestFocus();
-//            return;
-//        }
-
-//        String name = "kim"; // TODO: 바꾸기
-//        String email = "test"; // TODO: 바꾸기
-
         String email = edt_logic_email.getText().toString(); // TODO: 바꾸기
         String password = edt_login_password.getText().toString(); // TODO: 바꾸기
-//        Call<LoginResponse> call = RetrofitClient
-//                .getInstance().getApi().login(name, email, id);
 
         Call<LoginResponse> call = RetrofitClient
                 .getInstance().getApi().login(email, password);
@@ -213,7 +197,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (response.code() == 200) {
                                     Toast.makeText(LoginActivity.this, "[수신]" + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
 
-                                    System.out.println(">>>>>>>>>>>>>>>>>>"+loginResponse.getMessage()+"<<<<<");
                                     SharedPrefManager.getInstance(LoginActivity.this)
                                             .saveUser(loginResponse.getUser());//TODO: Test용insert
 
@@ -343,7 +326,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else if (response.code() == 404) {
                             Log.d(TAG, "onResponse: Body: Error" + response.errorBody().toString());
                             Toast.makeText(LoginActivity.this, "없는 아이디", Toast.LENGTH_LONG).show();
-                        } else {
+                         } else {
                             Log.d(TAG, "onResponse: Body: Error" + response.errorBody().toString());
                             Toast.makeText(LoginActivity.this, "요청 실패!", Toast.LENGTH_LONG).show();
 

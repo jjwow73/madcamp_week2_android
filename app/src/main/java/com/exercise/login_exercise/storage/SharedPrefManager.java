@@ -55,7 +55,8 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
                 sharedPreferences.getString("email", null),
-                sharedPreferences.getString("name", null)
+                sharedPreferences.getString("name", null),
+                sharedPreferences.getString("phone", null)
         );
 //                sharedPreferences.getString("id", "-1"),
 //                sharedPreferences.getString("imageUrl", null)
