@@ -7,7 +7,6 @@ import com.exercise.login_exercise.models.UsersResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -15,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * Created by jongwow on 2020-07-17.
@@ -45,9 +45,20 @@ public interface Api {
             @Field("id") String id
     );
 
+    @FormUrlEncoded
+    @POST("/api/v3/check")
+    Call<DefaultResponse> tempUser(
+            @Field("temperature") String temperature,
+            @Field("email") String email
+    );
+
     @GET("/api/v3/list")
     Call<UsersResponse> getUsers();
 
+    @GET("/api/v3/qr")
+    Call<DefaultResponse> getQR(
+            @Query("token") String token
+    );
 
     ///////////////////////////////////////// previous version ////////////////////////////////////////
     @GET("/api/v1/image/list")
