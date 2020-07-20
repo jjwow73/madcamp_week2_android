@@ -4,9 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.NumberPicker;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.exercise.login_exercise.R;
 
 public class TempDialogActivity extends DialogFragment {
     private NumberPicker.OnValueChangeListener valueChangeListener;
@@ -17,6 +20,7 @@ public class TempDialogActivity extends DialogFragment {
     int maxvalue;
     int step;
     int defvalue;
+    Button attendanceBtn;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -52,8 +56,10 @@ public class TempDialogActivity extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog를 종료하면서 값이 변했다는 함수는 onValuechange함수를 실행시킨다.
-                valueChangeListener.onValueChange(numberPicker,
-                        numberPicker.getValue(), numberPicker.getValue());
+                valueChangeListener.onValueChange(numberPicker, numberPicker.getValue(), numberPicker.getValue());
+
+                attendanceBtn = getActivity().findViewById(R.id.attendanceBtn);
+                attendanceBtn.setEnabled(true);
             }
         });
 
