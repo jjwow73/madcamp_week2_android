@@ -2,7 +2,10 @@ package com.exercise.login_exercise.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +18,13 @@ import com.exercise.login_exercise.fragments.SettingFragment;
 import com.exercise.login_exercise.fragments.UserFragment;
 import com.exercise.login_exercise.storage.SharedPrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 /**
  * Created by jongwow on 2020-07-17.
  */
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,4 +81,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         return false;
     }
+
 }

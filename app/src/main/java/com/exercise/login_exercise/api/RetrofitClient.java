@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by jongwow on 2020-07-17.
  */
-public class RetrofitClient {
+public class  RetrofitClient {
     private static final String BASE_URL = "http://192.249.19.243:8780";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
