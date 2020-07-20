@@ -58,14 +58,11 @@ public class UserFragment extends Fragment{
         progressBar = view.findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
 
-
         Call<UsersResponse> call = RetrofitClient.getInstance().getApi().getUsers();
-
         call.enqueue(new Callback<UsersResponse>() {
             @Override
             public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
                 progressBar.setVisibility(View.GONE);
-
                 if (response.code() == 200) {
                     userList = response.body().getUsers();
                     Log.d(TAG, "onResponse: getUsers"+userList);
