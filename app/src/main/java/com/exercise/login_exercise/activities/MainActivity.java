@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.exercise.login_exercise.R;
 import com.exercise.login_exercise.fragments.GalleryFragment;
+import com.exercise.login_exercise.fragments.ScannerFragment;
 import com.exercise.login_exercise.fragments.UserFragment;
 import com.exercise.login_exercise.fragments.SettingFragment;
 import com.exercise.login_exercise.storage.SharedPrefManager;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new GalleryFragment();
                 break;
             case R.id.menu_qr:
-                fragment = new SettingFragment();
+                fragment = new ScannerFragment();
                 break;
             case R.id.menu_setting:
                 fragment = new SettingFragment();
