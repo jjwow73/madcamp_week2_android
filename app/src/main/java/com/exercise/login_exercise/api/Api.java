@@ -45,9 +45,11 @@ public interface Api {
             @Field("id") String id
     );
 
-    @GET("/api/v3/list") // API 주소 바꿔야할듯..?
+    @GET("/api/v3/list")
     Call<UsersResponse> getUsers();
 
+
+    ///////////////////////////////////////// previous version ////////////////////////////////////////
     @GET("/api/v1/image/list")
     Call<ImagesResponse> getImages();
 
