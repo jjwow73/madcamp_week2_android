@@ -25,11 +25,17 @@ import com.google.zxing.integration.android.IntentIntegrator;
  */
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView navigationPeople;
+    BottomNavigationView navigationGallery;
+    BottomNavigationView navigationScan;
+    BottomNavigationView navigationSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
         navigationView.setOnNavigationItemSelectedListener(this);

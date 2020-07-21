@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,9 +45,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         holder.textViewName.setText(user.getName());
         holder.textViewPhone.setText(user.getPhone());
+        holder.textViewTemp.setText(user.getTemperature());
 
-        String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
+        // 학생 프로필 업로드드
+       String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
         Glide.with(mContext).load(imageUrl).into(imageView);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + user.getLastChecked());
+        if (user.getLastChecked() != null) {
+            holder.attendanceCheck.setImageResource(R.drawable.attendance_check);
+        } else {
+            holder.attendanceCheck.setImageResource(R.drawable.attendance_null);
+        }
     }
 
 
@@ -57,15 +66,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     class UserViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName, textViewPhone;
+        TextView textViewName, textViewPhone, textViewTemp;
         ImageView imageView;
+        ImageView attendanceCheck;
 
         public UserViewHolder(View itemView) {
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewPhone = itemView.findViewById(R.id.textViewPhone);
+            textViewTemp = itemView.findViewById(R.id.textViewTemp);
             imageView = itemView.findViewById(R.id.image);
+            attendanceCheck  = itemView.findViewById(R.id.attendanceCheck);
+
         }
     }
 }

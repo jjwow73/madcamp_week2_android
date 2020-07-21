@@ -33,6 +33,7 @@ public class SharedPrefManager {
         editor.putString("email", user.getEmail());
         editor.putString("name", user.getName());
         editor.putString("phone", user.getPhone());
+        editor.putString("lastChecked", user.getLastChecked());
 //        editor.putString("imageUrl", user.getImageUrl());
 
         editor.apply();
@@ -57,7 +58,9 @@ public class SharedPrefManager {
         return new User(
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("name", null),
-                sharedPreferences.getString("phone", null)
+                sharedPreferences.getString("phone", null),
+                sharedPreferences.getString("temperature", null),
+                sharedPreferences.getString("lastChecked", null)
         );
 //                sharedPreferences.getString("id", "-1"),
 //                sharedPreferences.getString("imageUrl", null)
