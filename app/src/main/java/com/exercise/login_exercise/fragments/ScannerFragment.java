@@ -102,6 +102,7 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
         // QR scanner 결과
         if (intentResult != null) {
             if (intentResult.getContents() == null) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(mContext, "QR 코드에 암것도 엄서용", Toast.LENGTH_SHORT).show();
             } else {
                 QRString = intentResult.getContents();
