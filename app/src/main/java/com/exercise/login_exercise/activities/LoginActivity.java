@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -31,6 +32,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -55,13 +57,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // login email and password
     MaterialEditText edt_logic_email, edt_login_password;
     Button btn_login;
+    private AccessTokenTracker tokenTracker;
     TextView txt_create_account;
 
     //facebook
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     public static final int sub = 1001; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +77,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
+
+        tokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if (currentAccessToken == null) {
+                    Toast.makeText(LoginActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
+                } else loaduserProfile(currentAccessToken);
+            }
+        };
+        tokenTracker.startTracking();
 
         ////////////////////////// User login ///////////////////////
         edt_logic_email = (MaterialEditText) findViewById(R.id.edt_email);
@@ -274,14 +286,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-            if (currentAccessToken == null) {
-                Toast.makeText(LoginActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
-            } else loaduserProfile(currentAccessToken);
-        }
-    };
+
 
     private void loaduserProfile(AccessToken newAccessToken) {
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
@@ -350,5 +355,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         parameters.putString("fields", "first_name, last_name, email, id");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tokenTracker.stopTracking();
     }
 }

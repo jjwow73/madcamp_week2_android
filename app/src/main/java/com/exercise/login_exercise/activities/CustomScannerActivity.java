@@ -59,3 +59,4 @@ public class CustomScannerActivity extends Activity {
     }
 
 }
+

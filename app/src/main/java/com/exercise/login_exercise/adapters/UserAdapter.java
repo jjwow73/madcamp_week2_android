@@ -28,7 +28,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         this.userList = userList;
     }
 
-
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,10 +44,27 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.textViewName.setText(user.getName());
         holder.textViewPhone.setText(user.getPhone());
 
-        String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
+        if (user.getTemperature() != null) {
+            holder.textViewTemp.setText(user.getTemperature() + "℃");
+        } else {
+            holder.textViewTemp.setText("체온을 측정 해주세요");
+        }
+        String profileUrl = "";
+        if (user.getImageUrl() == null) {
+            profileUrl = "default.png";
+        } else {
+            profileUrl = user.getImageUrl();
+        }
+        // 학생 프로필 업로드
+        String imageUrl = "http://192.249.19.243:8780/api/v3/profile/" + profileUrl;
         Glide.with(mContext).load(imageUrl).into(imageView);
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + user.getLastChecked());
+        if (user.getLastChecked() != null) {
+            holder.attendanceCheck.setImageResource(R.drawable.attendance_check);
+        } else {
+            holder.attendanceCheck.setImageResource(R.drawable.attendance_null);
+        }
     }
-
 
     @Override
     public int getItemCount() {
@@ -56,16 +72,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-
-        TextView textViewName, textViewPhone;
+        TextView textViewName, textViewPhone, textViewTemp;
         ImageView imageView;
+        ImageView attendanceCheck;
 
         public UserViewHolder(View itemView) {
             super(itemView);
-
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewPhone = itemView.findViewById(R.id.textViewPhone);
+            textViewTemp = itemView.findViewById(R.id.textViewTemp);
             imageView = itemView.findViewById(R.id.image);
+            attendanceCheck = itemView.findViewById(R.id.attendanceCheck);
         }
     }
 }
