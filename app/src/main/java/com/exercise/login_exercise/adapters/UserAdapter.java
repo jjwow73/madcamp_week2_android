@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,11 +49,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         } else {
             holder.textViewTemp.setText("체온을 측정 해주세요");
         }
-
-        // 학생 프로필 업로드드
-       String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
+        String profileUrl = "";
+        if (user.getImageUrl() == null) {
+            profileUrl = "default.png";
+        } else {
+            profileUrl = user.getImageUrl();
+        }
+        // 학생 프로필 업로드
+        String imageUrl = "http://192.249.19.243:8780/api/v3/profile/" + profileUrl;
         Glide.with(mContext).load(imageUrl).into(imageView);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + user.getLastChecked());
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + user.getLastChecked());
         if (user.getLastChecked() != null) {
             holder.attendanceCheck.setImageResource(R.drawable.attendance_check);
         } else {
@@ -78,7 +82,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             textViewPhone = itemView.findViewById(R.id.textViewPhone);
             textViewTemp = itemView.findViewById(R.id.textViewTemp);
             imageView = itemView.findViewById(R.id.image);
-            attendanceCheck  = itemView.findViewById(R.id.attendanceCheck);
+            attendanceCheck = itemView.findViewById(R.id.attendanceCheck);
         }
     }
 }

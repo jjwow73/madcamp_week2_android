@@ -1,6 +1,6 @@
 package com.exercise.login_exercise.models;
 
-import java.util.Date;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by jongwow on 2020-07-17.
@@ -12,17 +12,22 @@ public class User {
     private String temperature;
     private String lastChecked;
 
-    public User(String email, String name, String phone, String temperature, String lastChecked) {
+    @SerializedName("profileImage")
+    private String imageUrl;
+
+    public User(String email, String name, String phone, String temperature, String lastChecked, String imageUrl) {
 //        this.id = id;
         this.email = email;
         this.name = name;
         this.phone = phone;
         this.temperature = temperature;
         this.lastChecked = lastChecked;
-//        this.imageUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
 
-//    public String getImageUrl() {        return imageUrl;    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
 //    public String getId() {
 //        return id;
@@ -36,11 +41,17 @@ public class User {
         return name;
     }
 
-    public String getPhone() { return phone; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public String getTemperature() { return temperature; }
+    public String getTemperature() {
+        return temperature;
+    }
 
-    public String getLastChecked() { return lastChecked;}
+    public String getLastChecked() {
+        return lastChecked;
+    }
 
     public void setEmail(String email) {
         this.email = email;
