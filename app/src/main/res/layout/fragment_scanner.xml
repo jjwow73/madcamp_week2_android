@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#D2F0FC"
+    android:background="#ffffff"
     >
 
 
@@ -24,8 +24,14 @@
             android:layout_marginHorizontal="60dp"
             android:layout_marginVertical="30dp"
             android:padding="30dp"
-            android:background="#ffffff"
+            android:background="@drawable/round_background"
             >
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/logo"
+                android:layout_gravity="center">
+            </ImageView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,6 +44,9 @@
                     android:textStyle="bold"
                     android:text="이름 : "
                     android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:layout_marginVertical="5dp"
+                    android:textSize="18sp"
                     />
                 <TextView
                     android:id="@+id/userName"
@@ -45,6 +54,10 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:layout_marginVertical="5dp"
+                    android:textSize="18sp"
+
                     />
             </LinearLayout>
 
@@ -59,6 +72,10 @@
                     android:textStyle="bold"
                     android:text="전화번호 : "
                     android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:layout_marginVertical="5dp"
+                    android:textSize="18sp"
+
                     />
                 <TextView
                     android:id="@+id/userPhoneNumber"
@@ -66,6 +83,10 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:layout_marginVertical="5dp"
+                    android:textSize="18sp"
+
                     />
             </LinearLayout>
 
@@ -81,6 +102,10 @@
                     android:textStyle="bold"
                     android:text="이메일 : "
                     android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:layout_marginVertical="5dp"
+                    android:textSize="18sp"
+
                     />
                 <TextView
                     android:id="@+id/userEmail"
@@ -88,6 +113,10 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:layout_marginVertical="5dp"
+                    android:textSize="18sp"
+
                     />
             </LinearLayout>
 
@@ -95,7 +124,7 @@
                 android:id="@+id/tempBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#82D3F7"
+                android:background="@drawable/round_button_white"
                 android:text="체온기록"
                 android:layout_alignBottom="@+id/textBox"
                 android:layout_gravity="center_horizontal"
@@ -108,7 +137,7 @@
                 android:id="@+id/attendanceBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#82D3F7"
+                android:background="@drawable/round_button_white"
                 android:text="출석하기"
                 android:layout_alignBottom="@+id/textBox"
                 android:layout_gravity="center_horizontal"

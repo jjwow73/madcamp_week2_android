@@ -29,12 +29,10 @@ import com.google.zxing.integration.android.IntentIntegrator;
  * Created by jongwow on 2020-07-17.
  */
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private TextView savedUserName, savedUserTemp, savedUserEmail, savedUserPhone;
-    private ImageView savedUserImage;
-    private Button logoutButton;
+    private ImageView savedUserImage, savedUserAttanence, logoutButton;
     private LinearLayout topTab;
-    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +44,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         savedUserTemp = findViewById(R.id.savedUserTemperature);
         savedUserEmail = findViewById(R.id.savedUserEmail);
         savedUserPhone = findViewById(R.id.savedUserPhone);
+        savedUserAttanence = findViewById(R.id.savedUserAttendance);
 
         savedUserImage = findViewById(R.id.savedUserImage);
         logoutButton = findViewById(R.id.buttonLogout);
 
         topTab = findViewById(R.id.topTab);
-        relativeLayout = findViewById(R.id.relativeLayout);
 
         // get info from login
         savedUserName.setText(SharedPrefManager.getInstance(this).getUser().getName());
-        savedUserTemp.setText(SharedPrefManager.getInstance(this).getUser().getTemperature() + "℃");
+        if (SharedPrefManager.getInstance(this).getUser().getTemperature() != null) {
+            savedUserTemp.setText(SharedPrefManager.getInstance(this).getUser().getTemperature() + "℃");
+        } else {
+            savedUserTemp.setText("체온을 측정하세요");
+        }
         savedUserEmail.setText(SharedPrefManager.getInstance(this).getUser().getEmail());
         savedUserPhone.setText(SharedPrefManager.getInstance(this).getUser().getPhone());
+        if (SharedPrefManager.getInstance(this).getUser().getLastChecked() != null) {
+            savedUserAttanence.setImageResource(R.drawable.attendance_check);
+        } else {
+            savedUserAttanence.setImageResource(R.drawable.attendance_null);
+        }
 
         savedUserImage.setImageResource(R.drawable.studnet_image);
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
         navigationView.setOnNavigationItemSelectedListener(this);
+
+        // logout button
+        logoutButton.setOnClickListener(this);
 
         displayFragment(new UserFragment());
     }
@@ -83,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             finish();
             startActivity(intent);
         }
+
     }
 
     @Override
@@ -94,18 +105,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.menu_people:
                 topTab.setVisibility(View.VISIBLE);
                 fragment = new UserFragment();
+                logoutButton.setOnClickListener(this);
+
                 break;
             case R.id.menu_gallery:
                 topTab.setVisibility(View.VISIBLE);
                 fragment = new GalleryFragment2();
+                logoutButton.setOnClickListener(this);
+
                 break;
             case R.id.menu_qr:
                 topTab.setVisibility(View.GONE);
                 fragment = new ScannerFragment();
                 break;
-            case R.id.menu_setting:
-                fragment = new SettingFragment();
-                break;
+
         }
 
         if(fragment != null){
@@ -113,6 +126,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         return false;
+    }
+
+    private void logout() {
+        SharedPrefManager.getInstance(this).clear();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.buttonLogout) {
+            logout();
+        }
     }
 
 }
