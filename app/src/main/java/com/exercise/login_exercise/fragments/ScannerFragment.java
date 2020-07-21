@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +40,7 @@ import retrofit2.Response;
 /**
  * Created by jongwow on 2020-07-19.
  */
-public class ScannerFragment extends Fragment implements View.OnClickListener, NumberPicker.OnValueChangeListener{
+public class ScannerFragment extends Fragment implements View.OnClickListener, NumberPicker.OnValueChangeListener {
     private static final String TAG = "ScannerFragment";
     private Context mContext;
     private CaptureManager capture;
@@ -84,7 +86,6 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
         // 4. attendance 버튼을 누르면 tempvalue, email 서버로 보냄
 
 
-
         tempBtn.setOnClickListener(this);
         attendanceBtn.setOnClickListener(this);
     }
@@ -118,12 +119,14 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
                             userName.setText(SharedPrefManager.getInstance(getActivity()).getUser().getName());
                             userPhone.setText(SharedPrefManager.getInstance(getActivity()).getUser().getPhone());
                             userEmail.setText(SharedPrefManager.getInstance(getActivity()).getUser().getEmail());
+
                             // QR 코드 잘 찍었으면 체온 측정 버튼 켜짐
                             tempBtn.setEnabled(true);
                         } else {
                             Toast.makeText(getContext(), "[실패]", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<DefaultResponse> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
@@ -136,11 +139,11 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
 
     @Override
     public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-        tempValue = 36 + numberPicker.getValue()*0.1;
+        tempValue = 36 + numberPicker.getValue() * 0.1;
         Toast.makeText(mContext, Double.toString(tempValue), Toast.LENGTH_SHORT).show();
     }
 
-    public void showTempPicker(View view, String title, String subtitle, int maxvalue, int minvalue, int step, int defvalue){
+    public void showTempPicker(View view, String title, String subtitle, int maxvalue, int minvalue, int step, int defvalue) {
         TempDialogActivity newFragment = new TempDialogActivity();
 
         //Dialog에는 bundle을 이용해서 파라미터를 전달한다
@@ -160,8 +163,8 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case (R.id.tempBtn) :
-                showTempPicker(view, "체온 측정", "체온을 정확히 입력해주세요", 38,36,1,36);
+            case (R.id.tempBtn):
+                showTempPicker(view, "체온 측정", "체온을 정확히 입력해주세요", 38, 36, 1, 36);
                 break;
             case (R.id.attendanceBtn):
                 progressBar.setVisibility(View.VISIBLE);
@@ -173,18 +176,22 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
                         progressBar.setVisibility(View.GONE);
                         DefaultResponse defaultResponse = response.body();
                         if (response.code() == 200) {
+                            SharedPrefManager.getInstance(getActivity()).saveLastChecked(new Date().toString());
+                            SharedPrefManager.getInstance(getActivity()).saveTemperature(Double.toString(tempValue));
+
                             Toast.makeText(getActivity(), "[수신]" + defaultResponse.getMsg(), Toast.LENGTH_LONG).show();
-                        } else if(response.code() == 409){
+                        } else if (response.code() == 409) {
                             Log.d(TAG, "onResponse: Body: Error" + response.errorBody().toString());
-                            Toast.makeText(getActivity(), "[실패] 이미 출석체크함" , Toast.LENGTH_LONG).show();
-                        } else if(response.code() == 400){
+                            Toast.makeText(getActivity(), "[실패] 이미 출석체크함", Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 400) {
                             Log.d(TAG, "onResponse: Body: Error" + response.errorBody().toString());
-                            Toast.makeText(getActivity(), "[실패] 잘못된 요청(이메일or온도없음)" , Toast.LENGTH_LONG).show();
-                        } else if(response.code() == 500){
+                            Toast.makeText(getActivity(), "[실패] 잘못된 요청(이메일or온도없음)", Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 500) {
                             Log.d(TAG, "onResponse: Body: Error" + response.errorBody().toString());
-                            Toast.makeText(getActivity(), "[실패] 서버문제. 관리자한테 문의하세요." , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "[실패] 서버문제. 관리자한테 문의하세요.", Toast.LENGTH_LONG).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<DefaultResponse> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);

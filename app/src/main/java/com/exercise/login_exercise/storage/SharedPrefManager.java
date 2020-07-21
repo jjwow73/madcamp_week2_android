@@ -33,6 +33,7 @@ public class SharedPrefManager {
         editor.putString("email", user.getEmail());
         editor.putString("name", user.getName());
         editor.putString("phone", user.getPhone());
+        editor.putString("temperature", user.getTemperature());
         editor.putString("lastChecked", user.getLastChecked());
 //        editor.putString("imageUrl", user.getImageUrl());
 
@@ -44,6 +45,25 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString("id", id);
+
+        editor.apply();
+    }
+
+    public void saveTemperature(String temp){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("temperature", temp);
+
+        editor.apply();
+
+    }
+
+    public void saveLastChecked(String lastChecked){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("lastChecked", lastChecked);
 
         editor.apply();
     }

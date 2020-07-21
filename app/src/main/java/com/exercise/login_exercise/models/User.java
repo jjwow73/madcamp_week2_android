@@ -41,4 +41,24 @@ public class User {
     public String getTemperature() { return temperature; }
 
     public String getLastChecked() { return lastChecked;}
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setLastChecked(String lastChecked) {
+        this.lastChecked = lastChecked;
+    }
 }

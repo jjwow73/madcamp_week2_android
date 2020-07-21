@@ -57,13 +57,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // login email and password
     MaterialEditText edt_logic_email, edt_login_password;
     Button btn_login;
+    private AccessTokenTracker tokenTracker;
     TextView txt_create_account;
 
     //facebook
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     public static final int sub = 1001; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
-    private LoginManager loginManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,16 +71,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         checkSelfPermission();
 
-
-
         progressBar = findViewById(R.id.loading_spinner);
         ////////////////////////// facebook /////////////////////////
         callbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
-        loginManager.getInstance().logOut();
 
+        tokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if (currentAccessToken == null) {
+                    Toast.makeText(LoginActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
+                } else loaduserProfile(currentAccessToken);
+            }
+        };
+        tokenTracker.startTracking();
 
         ////////////////////////// User login ///////////////////////
         edt_logic_email = (MaterialEditText) findViewById(R.id.edt_email);
@@ -280,14 +286,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-            if (currentAccessToken == null) {
-                Toast.makeText(LoginActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
-            } else loaduserProfile(currentAccessToken);
-        }
-    };
+
 
     private void loaduserProfile(AccessToken newAccessToken) {
         GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
@@ -356,5 +355,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         parameters.putString("fields", "first_name, last_name, email, id");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tokenTracker.stopTracking();
     }
 }

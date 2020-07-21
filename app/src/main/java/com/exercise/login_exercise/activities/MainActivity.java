@@ -22,6 +22,7 @@ import com.exercise.login_exercise.fragments.ScannerFragment;
 import com.exercise.login_exercise.fragments.SettingFragment;
 import com.exercise.login_exercise.fragments.UserFragment;
 import com.exercise.login_exercise.storage.SharedPrefManager;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 
@@ -50,7 +51,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         logoutButton = findViewById(R.id.buttonLogout);
 
         topTab = findViewById(R.id.topTab);
+        setTopBarWithShared();
 
+        BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
+        navigationView.setOnNavigationItemSelectedListener(this);
+
+        // logout button
+        logoutButton.setOnClickListener(this);
+
+        displayFragment(new UserFragment());
+    }
+
+    private void setTopBarWithShared() {
         // get info from login
         savedUserName.setText(SharedPrefManager.getInstance(this).getUser().getName());
         if (SharedPrefManager.getInstance(this).getUser().getTemperature() != null) {
@@ -67,15 +79,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         savedUserImage.setImageResource(R.drawable.studnet_image);
-
-        BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
-        navigationView.setOnNavigationItemSelectedListener(this);
-
-        // logout button
-        logoutButton.setOnClickListener(this);
-
-        displayFragment(new UserFragment());
     }
+
     private void displayFragment(Fragment fragment){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -105,14 +110,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.menu_people:
                 topTab.setVisibility(View.VISIBLE);
                 fragment = new UserFragment();
+                setTopBarWithShared();
                 logoutButton.setOnClickListener(this);
-
                 break;
             case R.id.menu_gallery:
                 topTab.setVisibility(View.VISIBLE);
                 fragment = new GalleryFragment2();
                 logoutButton.setOnClickListener(this);
-
+                setTopBarWithShared();
                 break;
             case R.id.menu_qr:
                 topTab.setVisibility(View.GONE);
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void logout() {
         SharedPrefManager.getInstance(this).clear();
+        LoginManager.getInstance().logOut();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
