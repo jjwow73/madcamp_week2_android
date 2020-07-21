@@ -179,6 +179,7 @@ public class ScannerFragment extends Fragment implements View.OnClickListener, N
                             SharedPrefManager.getInstance(getActivity()).saveLastChecked(new Date().toString());
                             SharedPrefManager.getInstance(getActivity()).saveTemperature(Double.toString(tempValue));
 
+
                             Toast.makeText(getActivity(), "[수신]" + defaultResponse.getMsg(), Toast.LENGTH_LONG).show();
                         } else if (response.code() == 409) {
                             Log.d(TAG, "onResponse: Body: Error" + response.errorBody().toString());

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.exercise.login_exercise.R;
 import com.exercise.login_exercise.fragments.GalleryFragment2;
 import com.exercise.login_exercise.fragments.ScannerFragment;
@@ -78,7 +79,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             savedUserAttanence.setImageResource(R.drawable.attendance_null);
         }
 
-        savedUserImage.setImageResource(R.drawable.studnet_image);
+        String userImage = SharedPrefManager.getInstance(this).getUser().getImageUrl();
+        String profileUrl = "";
+        if (userImage == null) {
+            profileUrl = "default.png";
+        } else {
+            profileUrl = userImage;
+        }
+        String imageUrl = "http://192.249.19.243:8780/api/v3/profile/" + profileUrl;
+        Glide.with(getApplicationContext()).load(imageUrl).into(savedUserImage);
     }
 
     private void displayFragment(Fragment fragment){
