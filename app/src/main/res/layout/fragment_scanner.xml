@@ -37,7 +37,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal">show
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:layout_marginVertical="5dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     />
                 <TextView
                     android:id="@+id/userName"
@@ -57,7 +57,7 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:layout_marginVertical="5dp"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
 
                     />
             </LinearLayout>
@@ -75,7 +75,7 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:layout_marginVertical="5dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
 
                     />
                 <TextView
@@ -86,7 +86,7 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:layout_marginVertical="5dp"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
 
                     />
             </LinearLayout>
@@ -105,7 +105,7 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:layout_marginVertical="5dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
 
                     />
                 <TextView
@@ -116,7 +116,7 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:layout_marginVertical="5dp"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
 
                     />
             </LinearLayout>
