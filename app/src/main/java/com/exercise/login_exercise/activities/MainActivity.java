@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.exercise.login_exercise.R;
-import com.exercise.login_exercise.fragments.GalleryFragment;
+import com.exercise.login_exercise.fragments.GalleryFragment2;
 import com.exercise.login_exercise.fragments.ScannerFragment;
-import com.exercise.login_exercise.fragments.UserFragment;
 import com.exercise.login_exercise.fragments.SettingFragment;
+import com.exercise.login_exercise.fragments.UserFragment;
 import com.exercise.login_exercise.storage.SharedPrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new UserFragment();
                 break;
             case R.id.menu_gallery:
-                fragment = new GalleryFragment();
+                fragment = new GalleryFragment2();
                 break;
             case R.id.menu_qr:
                 fragment = new ScannerFragment();
