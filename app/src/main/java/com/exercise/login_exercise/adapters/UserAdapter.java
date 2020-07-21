@@ -29,7 +29,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         this.userList = userList;
     }
 
-
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,7 +44,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         holder.textViewName.setText(user.getName());
         holder.textViewPhone.setText(user.getPhone());
-        holder.textViewTemp.setText(user.getTemperature());
+
+        if (user.getTemperature() != null) {
+            holder.textViewTemp.setText(user.getTemperature() + "℃");
+        } else {
+            holder.textViewTemp.setText("체온을 측정 해주세요");
+        }
 
         // 학생 프로필 업로드드
        String imageUrl = "http://192.249.19.243:8780/api/v1/image/" + "img1.jpg";
@@ -58,27 +62,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 
-
     @Override
     public int getItemCount() {
         return userList.size();
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-
         TextView textViewName, textViewPhone, textViewTemp;
         ImageView imageView;
         ImageView attendanceCheck;
 
         public UserViewHolder(View itemView) {
             super(itemView);
-
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewPhone = itemView.findViewById(R.id.textViewPhone);
             textViewTemp = itemView.findViewById(R.id.textViewTemp);
             imageView = itemView.findViewById(R.id.image);
             attendanceCheck  = itemView.findViewById(R.id.attendanceCheck);
-
         }
     }
 }
