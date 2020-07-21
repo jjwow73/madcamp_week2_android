@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,17 +30,36 @@ import com.google.zxing.integration.android.IntentIntegrator;
  */
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    BottomNavigationView navigationPeople;
-    BottomNavigationView navigationGallery;
-    BottomNavigationView navigationScan;
-    BottomNavigationView navigationSetting;
-
+    private TextView savedUserName, savedUserTemp, savedUserEmail, savedUserPhone;
+    private ImageView savedUserImage;
+    private Button logoutButton;
+    private LinearLayout topTab;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ////////// Top tab ///////////
+        savedUserName = findViewById(R.id.savedUserName);
+        savedUserTemp = findViewById(R.id.savedUserTemperature);
+        savedUserEmail = findViewById(R.id.savedUserEmail);
+        savedUserPhone = findViewById(R.id.savedUserPhone);
+
+        savedUserImage = findViewById(R.id.savedUserImage);
+        logoutButton = findViewById(R.id.buttonLogout);
+
+        topTab = findViewById(R.id.topTab);
+        relativeLayout = findViewById(R.id.relativeLayout);
+
+        // get info from login
+        savedUserName.setText(SharedPrefManager.getInstance(this).getUser().getName());
+        savedUserTemp.setText(SharedPrefManager.getInstance(this).getUser().getTemperature() + "℃");
+        savedUserEmail.setText(SharedPrefManager.getInstance(this).getUser().getEmail());
+        savedUserPhone.setText(SharedPrefManager.getInstance(this).getUser().getPhone());
+
+        savedUserImage.setImageResource(R.drawable.studnet_image);
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_nav);
         navigationView.setOnNavigationItemSelectedListener(this);
@@ -68,12 +92,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch(item.getItemId()){
             case R.id.menu_people:
+                topTab.setVisibility(View.VISIBLE);
                 fragment = new UserFragment();
                 break;
             case R.id.menu_gallery:
+                topTab.setVisibility(View.VISIBLE);
                 fragment = new GalleryFragment2();
                 break;
             case R.id.menu_qr:
+                topTab.setVisibility(View.GONE);
                 fragment = new ScannerFragment();
                 break;
             case R.id.menu_setting:

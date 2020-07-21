@@ -4,12 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:layout_columnWeight="2">
+
+    <LinearLayout
+        android:id="@+id/topTab"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="@drawable/round_tab"
+        android:weightSum="5">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/savedUserImage"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp" />
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/savedUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="출첵이"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:id="@+id/savedUserAttendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                </ImageView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/savedUserTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="36.5℃"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/savedUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="qwerw21@gmail.com"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/savedUserPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="010-1234-5687"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/logout_button"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/topTab"
         android:layout_marginBottom="55dp">
     </RelativeLayout>
 
@@ -19,9 +100,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemIconTint="#82D3F7"
+        android:background="@drawable/round_bottom_tab"
+        app:itemIconTint="#FFFFFF"
         app:itemTextColor="@color/colorPrimaryDark"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_nav" />
 
 </RelativeLayout>
